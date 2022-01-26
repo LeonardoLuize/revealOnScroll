@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap" rel="stylesheet">
+    <title>Scroll Animation</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            background-color: #2d0320;
+
+            display: flex;
+            align-items: center;
+            justif-content: center;
+            flex-direction: column;
+
+            overflow-x: hidden;
+        }
+
+        h1 {
+            color: #fafafa;
+            font-family: "Manrope";
+            font-size: 40px;
+            margin: 300px 0;
+        }
+
+        #container {
+            width: 80%;
+
+            display: flex;
+            align-items: center;
+            justif-content: center;
+            flex-direction: column;
+            gap: 100px;
+
+            padding: 50px 0;
+        }
+
+        .card {
+            width: 270px;
+            height: 370px;
+
+            background-color: #99d5c9;
+            border-radius: 8px;
+        }
+
+        [data-anime] {
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        [data-anime="left"] {
+            transform: translateX(-100%);
+        }
+
+        [data-anime="center"] {
+            transform: translateY(-100%);
+        }
+
+        [data-anime="right"] {
+            transform: translateX(100%);
+        }
+
+        [data-anime].animate {
+            transform: translate(0%, 0%);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Scroll</h1>
+    <div id="container">
+        <div data-anime="left" style="align-self: start;" class="card"></div>
+        <div data-anime="right" style="align-self: end;" class="card"></div>
+        <div data-anime="center" style="align-self: center;" class="card"></div>
+        <div data-anime="right" style="align-self: start;" class="card"></div>
+        <div data-anime="left" style="align-self: end;" class="card"></div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll("[data-anime]");
+
+        window.addEventListener("scroll", () => {
+            const windowTop = window.pageYOffset + (window.innerHeight * 3) / 4;
+
+            cards.forEach((card) => {
+                if (windowTop > card.offsetTop) card.classList.add("animate");
+                else card.classList.remove("animate");
+            });
+        });
+    </script>
+</body>
+
+</html>
